@@ -1,6 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id ("kotlin-kapt")
+    id ("com.google.dagger.hilt.android")
+
+
 }
 
 android {
@@ -20,7 +24,26 @@ android {
         }
     }
 
+    flavorDimensions += "tier"
+    productFlavors {
+        create("free") {
+            dimension = "tier"
+            applicationIdSuffix = ".free"
+        }
+        create("paid") {
+            dimension = "tier"
+            applicationIdSuffix = ".paid"
+        }
+    }
+
+
+
     buildTypes {
+
+        debug {
+            isDebuggable = true
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -51,6 +74,9 @@ android {
 
 dependencies {
 
+    val retrofit_version = "2.9.0"
+    val hilt_version = "2.51.1"
+
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
     implementation("androidx.activity:activity-compose:1.9.0")
@@ -59,6 +85,11 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+
+    // Dagger - Hilt
+    implementation("com.google.dagger:hilt-android:$hilt_version")
+    kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
@@ -66,4 +97,15 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
+    // Gson for JSON parsing
+    implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version")
+    // Optional: Logging Interceptor for monitoring network requests (if needed)
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
+}
+
+kapt {
+    correctErrorTypes = true
 }
