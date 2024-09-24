@@ -104,6 +104,13 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version")
     // Optional: Logging Interceptor for monitoring network requests (if needed)
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
+
+
+    val nav_version = "2.7.7"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+
+    implementation ("androidx.compose.material:material:1.6.6")
+    implementation("androidx.credentials:credentials:1.3.0-alpha03")
 }
 
 kapt {
