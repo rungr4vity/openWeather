@@ -121,6 +121,13 @@ dependencies {
 
     implementation ("com.google.android.gms:play-services-location:21.0.1")
 
+
+    // Test rules and runner
+    androidTestImplementation ("androidx.test:rules:1.5.0")
+    androidTestImplementation ("androidx.test:runner:1.5.0")
+
+    // Compose UI Test Manifest
+    debugImplementation ("androidx.compose.ui:ui-test-manifest:1.5.0")
 }
 
 kapt {

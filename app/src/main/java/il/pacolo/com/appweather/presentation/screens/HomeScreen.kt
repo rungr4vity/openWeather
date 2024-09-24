@@ -64,6 +64,11 @@ fun WeatherScreen(viewModel:HomeViewModel = hiltViewModel()) {
 }
 
 @Composable
+fun Greeting(name: String) {
+    Text(text = "Hello, $name!")
+}
+
+@Composable
 fun SearchBar(cityName: String, onSearch: (String) -> Unit) {
     var searchText by remember { mutableStateOf(cityName) }
 
