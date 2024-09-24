@@ -3,8 +3,6 @@ package il.pacolo.com.appweather.navigation
 
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 
@@ -22,7 +20,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 
@@ -33,12 +30,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -61,7 +56,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import il.pacolo.com.appweather.R
+import il.pacolo.com.appweather.data.ApiService
+import il.pacolo.com.appweather.data.DataRepository
 import il.pacolo.com.appweather.presentation.screens.WeatherScreen
+import il.pacolo.com.appweather.presentation.viewmodels.HomeViewModel
 import kotlinx.coroutines.launch
 
 
@@ -76,12 +74,11 @@ fun App() {
 
     val drawerItems = listOf(
 
+
         //Usuario
         Triple("Home", Icons.Default.Home, 2),
         Triple("My map", Icons.Default.Person, 2),
         Triple("General", Icons.Default.AddCircle, 2),
-
-
     )//.filter { it.third == userData.typeId }
 
     val scaffoldState = rememberScaffoldState()
@@ -106,7 +103,7 @@ fun App() {
             )
         },
         drawerContent = {
-            // Contenido del Navigation Drawer
+
             DrawerContent(drawerItems, navController, closeDrawer = {
                 scope.launch {
                     scaffoldState.drawerState.close()
@@ -120,6 +117,7 @@ fun App() {
             ) {
 
                 composable("Home") {
+
                     WeatherScreen()
                 }
 

@@ -5,6 +5,7 @@ plugins {
     id ("com.google.dagger.hilt.android")
 
 
+
 }
 
 android {
@@ -75,7 +76,9 @@ android {
 dependencies {
 
     val retrofit_version = "2.9.0"
-    val hilt_version = "2.51.1"
+    val hilt_version = "2.52"
+
+
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
@@ -87,8 +90,10 @@ dependencies {
     implementation("androidx.compose.material3:material3")
 
     // Dagger - Hilt
+    //implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
@@ -111,6 +116,11 @@ dependencies {
 
     implementation ("androidx.compose.material:material:1.6.6")
     implementation("androidx.credentials:credentials:1.3.0-alpha03")
+
+    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
+
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
+
 }
 
 kapt {

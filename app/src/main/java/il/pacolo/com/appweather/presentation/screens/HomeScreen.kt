@@ -12,14 +12,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import il.pacolo.com.appweather.R
+import il.pacolo.com.appweather.presentation.viewmodels.HomeViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 @Composable
-fun WeatherScreen() {
-    var city by remember { mutableStateOf("San Francisco") }  // Initial city
+fun WeatherScreen(viewModel:HomeViewModel = hiltViewModel()) {
+
+    var listado by remember { mutableStateOf(viewModel.listado.value) }
+
+    var city by remember { mutableStateOf(listado?.city ?: "Unknown") }  // Initial city
     var date by remember { mutableStateOf("Sep 24, 2024") }
-    var temperature by remember { mutableStateOf("22°C") }
-    var weatherDescription by remember { mutableStateOf("Sunny") }
+    var temperature by remember { mutableStateOf("25") }
+    var weatherDescription by remember { mutableStateOf("Cloudy") }
 
     Column(
         modifier = Modifier

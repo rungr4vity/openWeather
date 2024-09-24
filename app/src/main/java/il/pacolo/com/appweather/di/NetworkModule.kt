@@ -22,8 +22,6 @@ object  NetworkModule {
     fun provideApiService(retrofit: Retrofit): ApiService =
         retrofit.create(ApiService::class.java)
 
-
-
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
@@ -31,7 +29,6 @@ object  NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
-
 
     @Provides
     fun providesOkHttpClient(): OkHttpClient =
