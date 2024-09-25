@@ -1,9 +1,5 @@
 package il.pacolo.com.appweather.data
 
-import android.content.Context
-import android.content.SharedPreferences
-
-
 
 // TODO: Shared proferences as Helper
 // Dependency Injection (Optional but recommended)
@@ -13,17 +9,31 @@ import android.content.SharedPreferences
 
 //this version does not support Shared Preferences
 
+import android.content.Context
+import android.content.SharedPreferences
 
 class SharedPreferencesHelper(context: Context) {
 
     private val preferences: SharedPreferences =
         context.getSharedPreferences("MyAppPreferences", Context.MODE_PRIVATE)
 
+    // Check if a key exists in SharedPreferences
+    fun keyExists(key: String): Boolean {
+        return preferences.contains(key)
+    }
+
+    // Save a String value if the key does not already exist
+    fun saveStringIfNotExists(key: String, value: String) {
+        if (!keyExists(key)) {
+            saveString(key, value)
+        }
+    }
+
     // Save a String value in SharedPreferences
-    fun saveString(key: String, value: String) {
+    private fun saveString(key: String, value: String) {
         val editor = preferences.edit()
         editor.putString(key, value)
-        editor.apply()  // or commit() for synchronous saving
+        editor.apply()
     }
 
     // Retrieve a String value from SharedPreferences
@@ -31,28 +41,32 @@ class SharedPreferencesHelper(context: Context) {
         return preferences.getString(key, defaultValue) ?: defaultValue
     }
 
+    // Save a Boolean value if the key does not already exist
+    fun saveBooleanIfNotExists(key: String, value: Boolean) {
+        if (!keyExists(key)) {
+            saveBoolean(key, value)
+        }
+    }
+
     // Save a Boolean value in SharedPreferences
-    fun saveBoolean(key: String, value: Boolean) {
+    private fun saveBoolean(key: String, value: Boolean) {
         val editor = preferences.edit()
         editor.putBoolean(key, value)
         editor.apply()
     }
 
-    // Retrieve a Boolean value from SharedPreferences
-    fun getBoolean(key: String, defaultValue: Boolean = false): Boolean {
-        return preferences.getBoolean(key, defaultValue)
+    // Save an Integer value if the key does not already exist
+    fun saveIntIfNotExists(key: String, value: Int) {
+        if (!keyExists(key)) {
+            saveInt(key, value)
+        }
     }
 
     // Save an Integer value in SharedPreferences
-    fun saveInt(key: String, value: Int) {
+    private fun saveInt(key: String, value: Int) {
         val editor = preferences.edit()
         editor.putInt(key, value)
         editor.apply()
-    }
-
-    // Retrieve an Integer value from SharedPreferences
-    fun getInt(key: String, defaultValue: Int = 0): Int {
-        return preferences.getInt(key, defaultValue)
     }
 
     // Remove a specific key from SharedPreferences

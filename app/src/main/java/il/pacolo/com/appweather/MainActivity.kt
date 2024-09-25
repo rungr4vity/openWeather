@@ -2,6 +2,7 @@ package il.pacolo.com.appweather
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -25,12 +26,14 @@ import il.pacolo.com.appweather.ui.theme.AppWeatherTheme
 import il.pacolo.com.appweather.utils.Constants
 
 
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     // lateinits to initialize later and save memory and better practices
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,8 +85,8 @@ class MainActivity : ComponentActivity() {
 
                 // Log the location via Shared Proferences
                 Log.d("Location by app", "Lat: $latitude, Lng: $longitude")
-                sharedPreferencesHelper.saveString("Lat", latitude.toString())
-                sharedPreferencesHelper.saveString("Lng", longitude.toString())
+                //sharedPrefs.saveStringIfNotExists("Lat", latitude.toString())
+                //sharedPreferencesHelper.saveStringIfNotExists("Lng", longitude.toString())
 
             } ?: run {
                 // Handle null location (location might be turned off)

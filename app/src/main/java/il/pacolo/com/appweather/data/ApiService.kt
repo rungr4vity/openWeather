@@ -10,7 +10,9 @@ interface ApiService {
 //    @GET("/api/character/")
 //    suspend fun getCharacters(@Query("page") page: Int): ResponseWrapper
 
-    @GET("weather?q=London&appid=97fb0baad55faa308a3ff5ccc0a2d19e")
-    suspend fun getLocation(): weatherResponse
+    @GET("weather?&units=imperial&appid=97fb0baad55faa308a3ff5ccc0a2d19e")
+    suspend fun getLocation(
+        @Query("q") q: String
+    ): weatherResponse
 
 }

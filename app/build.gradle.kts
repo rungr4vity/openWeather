@@ -75,6 +75,7 @@ android {
 
 dependencies {
 
+    implementation("androidx.compose.runtime:runtime-livedata:1.7.2")
     val retrofit_version = "2.9.0"
     val hilt_version = "2.52"
 
@@ -126,8 +127,10 @@ dependencies {
     androidTestImplementation ("androidx.test:rules:1.5.0")
     androidTestImplementation ("androidx.test:runner:1.5.0")
 
-    // Compose UI Test Manifest
+    // Compose UI Test Manifest.
     debugImplementation ("androidx.compose.ui:ui-test-manifest:1.5.0")
+
+    implementation("io.coil-kt:coil-compose:2.7.0")
 }
 
 kapt {

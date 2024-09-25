@@ -20,13 +20,24 @@ class HomeViewModel @Inject constructor(private val dataRepository: DataReposito
 
     init {
         viewModelScope.launch {
-            dataRepository.getData().onSuccess {
+//            dataRepository.getData("London").onSuccess {
+//                _listado.value = it
+//                println()
+//            }
+                getWeather("London")
+        }
+    }
+
+    fun getWeather(city: String){
+        viewModelScope.launch {
+            dataRepository.getData(city).onSuccess {
                 _listado.value = it
                 println()
             }
-
         }
     }
+
+
 
 //    private val _text = MutableLiveData<String>().apply {
 //        value = "This is home screen"
