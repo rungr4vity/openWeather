@@ -2,12 +2,12 @@
 Weather App is the application of science and technology to predict the conditions of the atmosphere for a given location and time.
 
 
-I used and deploy my app on Samsung Galaxy with Android 14
+I used and deployed my app on Samsung Galaxy with Android 14
 Android Studio Koala
 
 i used MVVM and basic clean arch for maintenance,support and separation of concerns
     - Data layer (API Service and Repository) we can switch for offline data or live data just changing the repository
-            - the Rest API response wis huge so i used mappers in my models
+            - the Rest API response is huge so i used mappers in my models
                 
             example: weatherResponse is all data from the REST API and basic_weather its a generic model
              fun converter(data: weatherResponse): basic_weather {
@@ -30,7 +30,7 @@ i used MVVM and basic clean arch for maintenance,support and separation of conce
 
 
  Flavors in gradle
-    - We used flavors for different version of the App,this is so useful for paid or free version of the app
+    - We used flavors for different version of the App,this is so useful for paid or free versions
 
 Espresso Tests with Hilt
     - Basic Test for Jetpack Compose
