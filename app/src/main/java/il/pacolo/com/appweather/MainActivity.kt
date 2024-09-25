@@ -12,29 +12,40 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
+import androidx.datastore.dataStore
+import androidx.datastore.preferences.core.doublePreferencesKey
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
+import il.pacolo.com.appweather.data.DataStoreManager
+import il.pacolo.com.appweather.data.LOCATION_DATASTORE
 import il.pacolo.com.appweather.data.SharedPreferencesHelper
+import il.pacolo.com.appweather.data.preferencesDataStore
+import il.pacolo.com.appweather.models.LocationDetails
 import il.pacolo.com.appweather.navigation.NavManager
 import il.pacolo.com.appweather.ui.theme.AppWeatherTheme
 import il.pacolo.com.appweather.utils.Constants
+import kotlinx.coroutines.launch
 
 
+val Context.dataStore by preferencesDataStore(name = LOCATION_DATASTORE)
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity ():ComponentActivity() {
 
     // lateinits to initialize later and save memory and better practices
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+    //private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
 
+
+    @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -47,8 +58,15 @@ class MainActivity : ComponentActivity() {
 
                     // we added the NavManager here to show the navigation
                     NavManager()
-                    fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-                    checkLocationPermission()
+
+
+
+                    //fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+                    //checkLocationPermission()
+
+
+
+
                 }
             }
         }
@@ -57,6 +75,7 @@ class MainActivity : ComponentActivity() {
 
     @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
+
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -80,13 +99,10 @@ class MainActivity : ComponentActivity() {
                 val latitude = it.latitude
                 val longitude = it.longitude
 
-
-
-
-                // Log the location via Shared Proferences
+                   // Log the location via Shared Proferences
                 Log.d("Location by app", "Lat: $latitude, Lng: $longitude")
-                //sharedPrefs.saveStringIfNotExists("Lat", latitude.toString())
-                //sharedPreferencesHelper.saveStringIfNotExists("Lng", longitude.toString())
+
+
 
             } ?: run {
                 // Handle null location (location might be turned off)

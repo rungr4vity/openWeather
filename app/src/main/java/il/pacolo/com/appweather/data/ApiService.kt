@@ -15,4 +15,12 @@ interface ApiService {
         @Query("q") q: String
     ): weatherResponse
 
+
+
+    @GET("weather?&units=imperial&appid=97fb0baad55faa308a3ff5ccc0a2d19e")
+    suspend fun getLocationLatLong(
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double
+    ): weatherResponse
+
 }

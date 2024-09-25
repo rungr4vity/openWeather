@@ -1,6 +1,11 @@
 package il.pacolo.com.appweather.presentation.screens
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -12,12 +17,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import il.pacolo.com.appweather.R
 import il.pacolo.com.appweather.presentation.viewmodels.HomeViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +35,7 @@ import il.pacolo.com.appweather.utils.Constants
 import java.time.LocalDate
 import java.util.Date
 import javax.inject.Inject
+import android.location.Location
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -44,6 +54,22 @@ fun WeatherScreen(viewModel:HomeViewModel = hiltViewModel()) {
     //var date by remember { mutableStateOf("Sep 24, 2024") }
     //var temperature by remember { mutableStateOf("25") }
     //var weatherDescription by remember { mutableStateOf("Cloudy") }
+
+    val context = LocalContext.current
+    val locationPermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            getCurrentLocation(context,viewModel)
+        } else {
+            // Handle permission denied case
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+    }
+
 
     Column(
         modifier = Modifier
@@ -78,6 +104,36 @@ fun WeatherScreen(viewModel:HomeViewModel = hiltViewModel()) {
 
         // Forecast Section (Optional)
         //ForecastSection()
+    }
+}
+
+private fun getCurrentLocation(context: Context,viewModel: HomeViewModel) {
+    val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+    if (ActivityCompat.checkSelfPermission(
+            context,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            context,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) != PackageManager.PERMISSION_GRANTED
+    ) {
+        // TODO: Consider calling
+        //    ActivityCompat#requestPermissions
+        // here to request the missing permissions, and then overriding
+        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+        //                                          int[] grantResults)
+        // to handle the case where the user grants the permission. See the documentation
+        // for ActivityCompat#requestPermissions for more details.
+        return
+    }
+    fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+        // Send the location to ViewModel
+        // locationViewModel.updateLocation(location)
+        var lat = location?.latitude
+        var lon = location?.longitude
+        println()
+            viewModel.getWeatherLatLong(lat ?: 0.0,lon ?: 0.0)
+
     }
 }
 

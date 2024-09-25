@@ -20,6 +20,20 @@ class DataRepository @Inject constructor(val apiService: ApiService) {
 
     }
 
+
+
+    suspend fun getLocationLatLong(lat:Double,lon:Double): Result<basic_weather> {
+        return try {
+            val response = apiService.getLocationLatLong(lat,lon)
+            val data = converter(response)
+            Result.success(data)
+
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+
+    }
+
     fun converter(data: weatherResponse): basic_weather {
         return basic_weather(
             data.name.toString(),

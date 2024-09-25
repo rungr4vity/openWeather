@@ -117,7 +117,6 @@ fun App() {
             ) {
 
                 composable("Home") {
-
                     WeatherScreen()
                 }
 

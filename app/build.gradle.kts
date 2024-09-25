@@ -76,6 +76,7 @@ android {
 dependencies {
 
     implementation("androidx.compose.runtime:runtime-livedata:1.7.2")
+
     val retrofit_version = "2.9.0"
     val hilt_version = "2.52"
 
@@ -131,6 +132,17 @@ dependencies {
     debugImplementation ("androidx.compose.ui:ui-test-manifest:1.5.0")
 
     implementation("io.coil-kt:coil-compose:2.7.0")
+
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
+
+// Mockito
+    testImplementation ("org.mockito:mockito-core:4.11.0")
+    androidTestImplementation ("org.mockito:mockito-android:4.11.0")
+
+
+    // Hilt testing
+    androidTestImplementation ("com.google.dagger:hilt-android-testing:2.48")
+    kaptAndroidTest ("com.google.dagger:hilt-compiler:2.48")
 }
 
 kapt {
