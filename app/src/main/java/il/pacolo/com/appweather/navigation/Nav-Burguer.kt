@@ -3,8 +3,11 @@ package il.pacolo.com.appweather.navigation
 
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 
 import androidx.compose.foundation.layout.Column
 
@@ -44,6 +47,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -84,65 +88,77 @@ fun App() {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
 
-    Scaffold(
-        scaffoldState = scaffoldState,
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "app Weather v1.0") },
-                navigationIcon = {
 
-                    IconButton(onClick = {
-                        scope.launch {
-                            scaffoldState.drawerState.open()
+//    Box(modifier = Modifier.fillMaxSize()) {
+//        // Background image
+//        Image(
+//            painter = painterResource(id = R.drawable.gradient_bg), // Replace with your drawable
+//            contentDescription = null,
+//            contentScale = ContentScale.Crop, // Adjust this as needed (Crop, Fit, etc.)
+//            modifier = Modifier.fillMaxSize()
+//        )
+
+        Scaffold(
+            modifier = Modifier
+                .fillMaxSize(),
+            scaffoldState = scaffoldState,
+            topBar = {
+                TopAppBar(
+                    title = { Text(text = "app Weather v1.0") },
+                    navigationIcon = {
+
+                        IconButton(onClick = {
+                            scope.launch {
+                                scaffoldState.drawerState.open()
+                            }
+                        }) {
+                            Icon(Icons.Filled.Menu, contentDescription = "Menu")
                         }
-                    }) {
-                        Icon(Icons.Filled.Menu, contentDescription = "Menu")
+
                     }
+                )
+            },
+            drawerContent = {
 
-                }
-            )
-        },
-        drawerContent = {
-
-            DrawerContent(drawerItems, navController, closeDrawer = {
-                scope.launch {
-                    scaffoldState.drawerState.close()
-                }
-            })
-        },
-        content = {
-            NavHost(
-                navController = navController as NavHostController,
-                startDestination = "Home"
-            ) {
-
-                composable("Home") {
-                    WeatherScreen()
-                }
-
-
-                composable(
-                    "DetalleOficinas/{capacidad}/{descripcion}/{id}/{mobilaria}/{nombre}/{idArea}/{imageUrl}",
-                    arguments = listOf(
-                        navArgument("capacidad") { type = NavType.StringType },
-                        navArgument("descripcion") { type = NavType.StringType },
-                        navArgument("id") { type = NavType.StringType },
-                        navArgument("mobilaria") { type = NavType.StringType },
-                        navArgument("nombre") { type = NavType.StringType },
-                        navArgument("idArea") { type = NavType.StringType },
-                        navArgument("imageUrl") { type = NavType.StringType }
-                    )
+                DrawerContent(drawerItems, navController, closeDrawer = {
+                    scope.launch {
+                        scaffoldState.drawerState.close()
+                    }
+                })
+            },
+            content = {
+                NavHost(
+                    navController = navController as NavHostController,
+                    startDestination = "Home"
                 ) {
 
+                    composable("Home") {
+                        WeatherScreen()
+                    }
 
-                    //var viewModel = OficinasViewModel()
-                    val capacidad = it.arguments?.getString("capacidad") ?: ""
-                    val descripcion = it.arguments?.getString("descripcion") ?: ""
-                    val id = it.arguments?.getString("id") ?: ""
-                    val mobilaria = it.arguments?.getString("mobilaria") ?: ""
-                    val nombre = it.arguments?.getString("nombre") ?: ""
-                    val idArea = it.arguments?.getString("idArea") ?: ""
-                    val imageUrl = it.arguments?.getString("imageUrl") ?: ""
+
+                    composable(
+                        "DetalleOficinas/{capacidad}/{descripcion}/{id}/{mobilaria}/{nombre}/{idArea}/{imageUrl}",
+                        arguments = listOf(
+                            navArgument("capacidad") { type = NavType.StringType },
+                            navArgument("descripcion") { type = NavType.StringType },
+                            navArgument("id") { type = NavType.StringType },
+                            navArgument("mobilaria") { type = NavType.StringType },
+                            navArgument("nombre") { type = NavType.StringType },
+                            navArgument("idArea") { type = NavType.StringType },
+                            navArgument("imageUrl") { type = NavType.StringType }
+                        )
+                    ) {
+
+
+                        //var viewModel = OficinasViewModel()
+                        val capacidad = it.arguments?.getString("capacidad") ?: ""
+                        val descripcion = it.arguments?.getString("descripcion") ?: ""
+                        val id = it.arguments?.getString("id") ?: ""
+                        val mobilaria = it.arguments?.getString("mobilaria") ?: ""
+                        val nombre = it.arguments?.getString("nombre") ?: ""
+                        val idArea = it.arguments?.getString("idArea") ?: ""
+                        val imageUrl = it.arguments?.getString("imageUrl") ?: ""
 
 //                    DetalleOficinas(
 //                        navController = navController,
@@ -155,32 +171,32 @@ fun App() {
 //                        idArea,
 //                        imageUrl,
 //                    )
-                }
+                    }
 
 
-                composable("DetalleCajon/{nombre}/{company}/{cajon}/{piso}/{esEspecial}/{idEstacionamiento}/{imagen}",
-                    arguments = listOf(
-                        navArgument("nombre") { type = NavType.StringType },
-                        navArgument("company") { type = NavType.StringType },
-                        navArgument("cajon") { type = NavType.StringType },
-                        navArgument("piso") { type = NavType.StringType },
-                        navArgument("esEspecial") { type = NavType.BoolType },
-                        navArgument("idEstacionamiento") { type = NavType.StringType },
-                        navArgument("imagen") { type = NavType.StringType }
-                    )) {
+                    composable("DetalleCajon/{nombre}/{company}/{cajon}/{piso}/{esEspecial}/{idEstacionamiento}/{imagen}",
+                        arguments = listOf(
+                            navArgument("nombre") { type = NavType.StringType },
+                            navArgument("company") { type = NavType.StringType },
+                            navArgument("cajon") { type = NavType.StringType },
+                            navArgument("piso") { type = NavType.StringType },
+                            navArgument("esEspecial") { type = NavType.BoolType },
+                            navArgument("idEstacionamiento") { type = NavType.StringType },
+                            navArgument("imagen") { type = NavType.StringType }
+                        )) {
 
-                    val nombre = it.arguments?.getString("nombre") ?: ""
-                    val company = it.arguments?.getString("company") ?: ""
-                    val cajon = it.arguments?.getString("cajon") ?: ""
-                    val piso = it.arguments?.getString("piso") ?: ""
-                    val esEspecial = it.arguments?.getBoolean("esEspecial") ?: false
+                        val nombre = it.arguments?.getString("nombre") ?: ""
+                        val company = it.arguments?.getString("company") ?: ""
+                        val cajon = it.arguments?.getString("cajon") ?: ""
+                        val piso = it.arguments?.getString("piso") ?: ""
+                        val esEspecial = it.arguments?.getBoolean("esEspecial") ?: false
 
-                    val esEspecialString = if (esEspecial) "1" else "0"
-                    val idEstacionamiento = it.arguments?.getString("idEstacionamiento") ?: ""
-                    val imagen = it.arguments?.getString("imagen") ?: ""
+                        val esEspecialString = if (esEspecial) "1" else "0"
+                        val idEstacionamiento = it.arguments?.getString("idEstacionamiento") ?: ""
+                        val imagen = it.arguments?.getString("imagen") ?: ""
 
 
-                    val context = LocalContext.current
+                        val context = LocalContext.current
 //                    Detalle(
 //                        navController = navController,
 //                        context,
@@ -192,15 +208,26 @@ fun App() {
 //                        idEstacionamiento,
 //                        imagen
 //                    )
-                }
+                    }
 
-                composable("Oficinas") {
-                    //AreaScreen(areaViewModel = viewModel(), navController = navController)
+                    composable("Oficinas") {
+                        //AreaScreen(areaViewModel = viewModel(), navController = navController)
+                    }
                 }
             }
-        }
-    )
+        )
+
+    //}
+
+
+
+
+
 }
+
+
+
+
 
 @Composable
 fun DrawerContent(

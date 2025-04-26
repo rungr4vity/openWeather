@@ -4,8 +4,6 @@ plugins {
     id ("kotlin-kapt")
     id ("com.google.dagger.hilt.android")
 
-
-
 }
 
 android {
@@ -71,11 +69,18 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+
+
 }
+
+
 
 dependencies {
 
     implementation("androidx.compose.runtime:runtime-livedata:1.7.2")
+    implementation("androidx.test.ext:junit-ktx:1.2.1")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     val retrofit_version = "2.9.0"
     val hilt_version = "2.52"
@@ -135,7 +140,7 @@ dependencies {
 
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
 
-// Mockito
+    // Mockito
     testImplementation ("org.mockito:mockito-core:4.11.0")
     androidTestImplementation ("org.mockito:mockito-android:4.11.0")
 
@@ -143,6 +148,17 @@ dependencies {
     // Hilt testing
     androidTestImplementation ("com.google.dagger:hilt-android-testing:2.48")
     kaptAndroidTest ("com.google.dagger:hilt-compiler:2.48")
+
+
+    // Room components
+    val roomVersion = "2.5.2"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion") // Kotlin Extensions
+
+
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1") // Make sure to use the latest coroutines version
+
 }
 
 kapt {

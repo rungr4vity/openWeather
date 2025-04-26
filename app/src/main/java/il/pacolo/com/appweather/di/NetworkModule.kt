@@ -1,11 +1,15 @@
 package il.pacolo.com.appweather.di
 
 
+import android.app.Application
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import il.pacolo.com.appweather.data.ApiService
+import il.pacolo.com.appweather.room.LocationsDatabase
+import il.pacolo.com.appweather.room.LocationsDatabaseDao
 import il.pacolo.com.appweather.utils.Constants
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -17,7 +21,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object  NetworkModule {
 
-
+    //Retrofit
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService =
         retrofit.create(ApiService::class.java)
@@ -33,5 +37,27 @@ object  NetworkModule {
     @Provides
     fun providesOkHttpClient(): OkHttpClient =
         OkHttpClient.Builder().build()
+
+
+    // Room
+    // application or @ApplicationContext context: Context
+
+    @Provides
+    @Singleton
+    fun providesLocationsDatabase(application: Application): LocationsDatabase {
+        return Room.databaseBuilder(
+            application,
+            LocationsDatabase::class.java,
+            "locations_db")
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesLocationsDao(locationsDatabase: LocationsDatabase):LocationsDatabaseDao {
+        return locationsDatabase.locationsDao()
+    }
+
 
 }

@@ -25,16 +25,11 @@ import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import il.pacolo.com.appweather.R
 import il.pacolo.com.appweather.presentation.viewmodels.HomeViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import il.pacolo.com.appweather.models.basic_weather
 import il.pacolo.com.appweather.utils.Constants
 import java.time.LocalDate
-import java.util.Date
-import javax.inject.Inject
 import android.location.Location
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -218,3 +213,5 @@ fun ForecastSection() {
     Text(text = "Weekly Forecast", fontSize = 20.sp, fontWeight = FontWeight.Medium)
     // Add more items here for the forecast list
 }
+
+

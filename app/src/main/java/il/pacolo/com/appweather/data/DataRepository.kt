@@ -8,6 +8,9 @@ import javax.inject.Inject
 class DataRepository @Inject constructor(val apiService: ApiService) {
 
 
+
+
+
     suspend fun getData(city:String): Result<basic_weather> {
         return try {
             val response = apiService.getLocation(city)

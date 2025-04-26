@@ -15,6 +15,7 @@ import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import il.pacolo.com.appweather.data.DataStoreManager
 import il.pacolo.com.appweather.data.LOCATION_DATASTORE
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.toList
 
 
@@ -30,7 +31,7 @@ open class HomeViewModel @Inject constructor(private val dataRepository: DataRep
 
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
 //            dataRepository.getData("London").onSuccess {
 //                _listado.value = it
 //                println()
@@ -41,6 +42,10 @@ open class HomeViewModel @Inject constructor(private val dataRepository: DataRep
 
             //getWeatherLatLong(25.6667246,-100.2937433)
         }
+    }
+
+    fun isPositive():Boolean {
+        return true
     }
 
     fun getWeather(city: String){
