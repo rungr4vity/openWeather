@@ -14,9 +14,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import il.pacolo.com.appweather.presentation.viewmodels.SettingsViewModel
 
 
-class HelloViewModel: ViewModel() {
+
+class HelloViewModel(): ViewModel() {
+
     private val _name = MutableLiveData("")
     val name : LiveData<String> = _name
 
@@ -24,6 +27,15 @@ class HelloViewModel: ViewModel() {
         _name.value = newName
     }
 }
+
+@Composable
+fun SettingsScreen() {
+
+    val  viewModel: SettingsViewModel = viewModel()
+    //val viewState: MainViewState
+
+}
+
 
 @Composable
 fun HelloScreen(helloViewModel: HelloViewModel = viewModel()){

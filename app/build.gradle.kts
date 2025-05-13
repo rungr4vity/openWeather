@@ -81,6 +81,7 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:1.7.2")
     implementation("androidx.test.ext:junit-ktx:1.2.1")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    testImplementation("androidx.compose.ui:ui-test-junit4-android:1.6.8")
 
     val retrofit_version = "2.9.0"
     val hilt_version = "2.52"
@@ -96,12 +97,16 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
 
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+
+
     // Dagger - Hilt
     //implementation ("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
+    // Test
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
@@ -109,6 +114,11 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    testImplementation("org.robolectric:robolectric:4.10.3")    // or latest 4.x
+    testImplementation("androidx.test:core:1.5.0")
+    // Optional: for Kotlin-friendly assertions
+    testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.10")
 
     // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
@@ -159,6 +169,9 @@ dependencies {
 
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1") // Make sure to use the latest coroutines version
 
+
+    // test
+    implementation(kotlin("test"))
 }
 
 kapt {

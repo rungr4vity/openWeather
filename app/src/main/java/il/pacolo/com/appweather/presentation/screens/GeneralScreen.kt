@@ -8,8 +8,12 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,7 +23,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun GeneralScreen() {
 
-    val estado  = mutableStateOf("")
+
+    var estado by rememberSaveable {mutableStateOf("")}
 
     Column(modifier = Modifier
         .fillMaxSize()
@@ -27,7 +32,8 @@ fun GeneralScreen() {
     ) {
 
         TextField(
-            value = estado.value,
+
+            value = estado,
             onValueChange = {},
             
         )
